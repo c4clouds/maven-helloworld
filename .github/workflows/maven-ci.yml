@@ -44,6 +44,12 @@ jobs:
 
       - name: Build and Analyze 
         uses: sonarsource/sonarqube-scan-action@master
+        with:
+          args: >
+            -Dsonar.projectKey=devops-demo
+            -Dsonar.sources=.
+            -Dsonar.qualitygate.wait=true
+
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
