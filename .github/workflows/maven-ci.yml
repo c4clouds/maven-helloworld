@@ -113,4 +113,4 @@ jobs:
           repository: maven-demo
           coordinates: groupId=com.efsavage artifactId=hello-world-war version=1.1.4
           assets: extension=war
-          filename: ./*.war
+          filename: hello-world-war-1.1.4.war
