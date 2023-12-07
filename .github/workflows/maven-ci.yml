@@ -42,7 +42,7 @@ jobs:
 
   scan:
     runs-on: ubuntu-latest
-    required: pre-steps
+    needs: pre-steps
     steps:
       - name: Analyze with SonarQube
         uses: sonarsource/sonarqube-scan-action@master
