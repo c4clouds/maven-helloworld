@@ -117,7 +117,7 @@ jobs:
           
   deploy:
     runs-on: ubuntu-latest
-    needs: Build
+    needs: push
     steps:
       - uses: actions/checkout@v2
         with:
@@ -127,16 +127,9 @@ jobs:
           name: my-artifact
       - name: Deploy WAR to Tomcat
         run: |
-          TOMCAT_USERNAME="admin"
-          TOMCAT_PASSWORD=${{ secrets.TOMCAT_PASSWORD }}
-          TOMCAT_HOST=${{ secrets.TOMCAT_HOST }}
-          TOMCAT_PORT="8080"
-          CONTEXT_PATH="/devops_demo1"
-  
+          ls -l
           # Replace 'your-war-file.war' with the actual name of your WAR file
-          curl -v -u "$TOMCAT_USERNAME:$TOMCAT_PASSWORD" \
-               -T *.war \
-               "http://$TOMCAT_USERNAME:$TOMCAT_PASSWORD@$TOMCAT_HOST:$TOMCAT_PORT/manager/text/deploy?path=$CONTEXT_PATH"
+          curl -v -u admin:${{ secrets.TOMCAT_PASSWORD }} -T *.war 'http://${{ secrets.TOMCAT_HOST }}:8080/manager/text/deploy?path=/devops_demo1&update=true'
             
 
           
