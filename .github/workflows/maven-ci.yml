@@ -114,7 +114,17 @@ jobs:
           coordinates: groupId=com.efsavage artifactId=hello-world-war version=1.1.4
           assets: extension=war
           filename: hello-world-war-1.1.4.war
-
+          
+  deploy:
+    runs-on: ubuntu-latest
+    needs: Build
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - uses: actions/download-artifact@v2
+        with:
+          name: my-artifact
       - name: Deploy WAR to Tomcat
         run: |
           TOMCAT_USERNAME="admin"
