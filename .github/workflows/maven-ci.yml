@@ -51,7 +51,7 @@ jobs:
         uses: sonarsource/sonarqube-scan-action@master
         with:
           args: >
-            -Dsonar.projectKey=devops-demo
+            -Dsonar.projectKey=demo-project
             -Dsonar.sources=.
             -Dsonar.qualitygate.wait=true
         env:
@@ -76,7 +76,7 @@ jobs:
   Build:
     runs-on: ubuntu-latest
     #needs: scan
-    needs: pre-steps
+    needs: [pre-steps,scan]
     steps:
       - uses: actions/checkout@v2
         with:
