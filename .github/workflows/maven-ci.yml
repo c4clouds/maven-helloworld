@@ -27,36 +27,36 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-#      - name: Cache SonarQube packages
-#        uses: actions/cache@v1
-#        with:
-#          path: ~/.sonar/cache
-#          key: ${{ runner.os }}-sonar
-#          restore-keys: ${{ runner.os }}-sonar
-#      - name: Cache Maven packages
-#        uses: actions/cache@v1
-#        with:
-#          path: ~/.m2
-#          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-#          restore-keys: ${{ runner.os }}-m2
+      - name: Cache SonarQube packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Cache Maven packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
 
-#   scan:
-#     runs-on: ubuntu-latest
-#     needs: pre-steps
-#     steps:
-#       - uses: actions/checkout@v2
-#         with:
-#           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-#       - name: Analyze with SonarQube
-#         uses: sonarsource/sonarqube-scan-action@master
-#         with:
-#           args: >
-#             -Dsonar.projectKey=devops-demo
-#             -Dsonar.sources=.
-#             -Dsonar.qualitygate.wait=true
-#         env:
-#           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-#           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+  scan:
+    runs-on: ubuntu-latest
+    needs: pre-steps
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Analyze with SonarQube
+        uses: sonarsource/sonarqube-scan-action@master
+        with:
+          args: >
+            -Dsonar.projectKey=devops-demo
+            -Dsonar.sources=.
+            -Dsonar.qualitygate.wait=true
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
 
 # #If you wish to fail your job when the Quality Gate is red, uncomment the
@@ -116,22 +116,22 @@ jobs:
 #           assets: extension=war
 #           filename: hello-world-war-1.1.4.war
           
-  deploy:
-    runs-on: ubuntu-latest
-    needs: Build
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      - uses: actions/download-artifact@v2
-        with:
-          name: my-artifact
-      - name: Deploy WAR to Tomcat
-        run: |
-          curl --version
-          ls -l
-          # Replace 'your-war-file.war' with the actual name of your WAR file
-          curl -v -u admin:${{ secrets.TOMCAT_PASSWORD }} -T *.war 'http://${{ secrets.TOMCAT_HOST }}:8080/manager/text/deploy?path=/devops_demo1&update=true'
+  # deploy:
+  #   runs-on: ubuntu-latest
+  #   needs: Build
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+  #     - uses: actions/download-artifact@v2
+  #       with:
+  #         name: my-artifact
+  #     - name: Deploy WAR to Tomcat
+  #       run: |
+  #         curl --version
+  #         ls -l
+  #         # Replace 'your-war-file.war' with the actual name of your WAR file
+  #         curl -v -u admin:${{ secrets.TOMCAT_PASSWORD }} -T *.war 'http://${{ secrets.TOMCAT_HOST }}:8080/manager/text/deploy?path=/devops_demo1&update=true'
             
 
           
