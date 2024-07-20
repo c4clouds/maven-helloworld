@@ -11,14 +11,14 @@
    
    <server>
       <id>maven-public</id>
-      <username>${env.MAVEN_USERNAME}</username>
-      <password>${env.MAVEN_PASSWORD}</password>
+      <username>admin</username>
+      <password>Admin@123</password>
    </server>
 
    <server>
       <id>maven-demo</id>
-      <username>${env.MAVEN_USERNAME}</username>
-      <password>${env.MAVEN_PASSWORD}</password>
+      <username>admin</username>
+      <password>Admin@123</password>
    </server>
 </servers>
 
@@ -31,7 +31,7 @@
         </snapshots>
         <id>maven-demo</id>
         <name>maven-demo</name>
-        <url>http://${env.NEXUSSERVERIP}:8081/repository/maven-demo/</url>
+        <url>http://34.19.72.91:8081/repository/maven-demo/</url>
       </repository>
     </repositories>
     <activation>
@@ -62,7 +62,7 @@
    <mirror>
       <id>maven-public</id>
       <name>maven-public</name>
-      <url>http://${env.NEXUSSERVERIP}:8081/repository/maven-public/</url>
+      <url>http://34.19.72.91:8081/repository/maven-public/</url>
       <mirrorOf>*</mirrorOf>
    </mirror>
 </mirrors>
